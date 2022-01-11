@@ -1,3 +1,5 @@
+const readUserNames = require('./helpers.js').readUserNames;
+
 const express = require('express')
 const app = express()
 const cors = require('cors');
@@ -12,45 +14,43 @@ const port = process.env.PORT || 3001
 
 const pretestRoutes = require('./routes/pretest');
 const loginRoutes = require('./routes/login');
-
-const fs = require('fs/promises');
-
-const readUserNames = async () => {
-    return fs.readFile('./usernames.txt', 'utf8' , (err, data) => {
-        // data = data.split('\n');
-        return data;
-    });
-}
+const authRoutes = require('./routes/auth');
 
 app.use(express.json());
 
 app.use(async (req, res, next) => {
-    const req2 = req;
+    console.log(`${req.method.toUpperCase()}: ${req.path}`);
+    
+    const username = req.method === "POST" ? req.body['username'] : req.query['username'];
+
+    console.log(`Data: ${username}`);
+
     if(req.url.includes('login')) {
-        console.log('IN NEXT')
         next();
         return;
     }
 
     let usernames;
     await readUserNames().then(data => {
-        usernames = data;
+        usernames = data
     });
-    
-    
-    const username = req.data['username'];
 
-    if(!(body.username in usernames)) {
-        res.status(400).send('Invalid username');
+    
+    if (!username || !(usernames.includes(username))) {
+        res.status(403).send('Invalid username');
         return;
     }
 
     next();
+    return;
 })
+
+app.use('/auth', authRoutes);
 
 app.use('/login', loginRoutes);
 
 app.use('/pretest', pretestRoutes);
+
 
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`)
