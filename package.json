@@ -1,25 +1,28 @@
 {
-  "name": "master-study-system-backend",
-  "version": "1.0.0",
-  "description": "Backend for Master study system",
-  "main": "index.js",
-  "scripts": {
-    "test": "test",
-    "start": "nodemon index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/skanin/master-study-system-backend.git"
-  },
-  "author": "Sander Lindberg",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/skanin/master-study-system-backend/issues"
-  },
-  "homepage": "https://github.com/skanin/master-study-system-backend#readme",
-  "dependencies": {
-    "body-parser": "^1.19.1",
-    "cors": "^2.8.5",
-    "express": "^4.17.2"
-  }
+	"name": "master-study-system-backend",
+	"version": "1.0.0",
+	"description": "Backend for Master study system",
+	"main": "index.js",
+	"scripts": {
+		"test": "test",
+		"start": "nodemon index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/skanin/master-study-system-backend.git"
+	},
+	"author": "Sander Lindberg",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/skanin/master-study-system-backend/issues"
+	},
+	"homepage": "https://github.com/skanin/master-study-system-backend#readme",
+	"dependencies": {
+		"body-parser": "^1.19.1",
+		"cors": "^2.8.5",
+		"csv-parser": "^3.0.0",
+		"csv-stringify": "^6.0.5",
+		"csv-writer": "^1.6.0",
+		"express": "^4.17.2"
+	}
 }
