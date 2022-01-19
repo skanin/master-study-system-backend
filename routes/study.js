@@ -8,7 +8,7 @@ const readCsvHeaders = require('../helpers').readCsvHeaders;
 
 router.post('/', async (req, res) => {
 	let headers = [];
-	const path = process.cwd() + '/data/pretestAnswers.csv';
+	const path = process.cwd() + '/data/studyAnswers.csv';
 
 	await readCsvHeaders(path)
 		.then((header) => {
@@ -19,22 +19,13 @@ router.post('/', async (req, res) => {
 		});
 
 	let data = { subjectId: req.body.subject, username: req.body.username };
-	console.log(req.body);
-	req.body.questions.forEach((element) => {
-		data[`pretest.${element.questionId}`] = element.checked >= 0 ? element.checked : null;
-		data[`pretest.${element.questionId}_correct`] = element.correct;
-	});
 
-	for (let header of headers) {
-		if (!data.hasOwnProperty(header)) {
-			data[header] = null;
-		}
+	for (let answer of req.body.answers) {
+		let [key, value] = Object.entries(answer)[0];
+		data[key] = value;
 	}
 
-	console.log(data);
-	console.log(process.cwd());
-
-	writeToCsv(path, data);
+	writeToCsv(path, data, fs.existsSync(path));
 
 	res.sendStatus(200);
 });

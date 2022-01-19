@@ -10,7 +10,6 @@ exports.readUserNames = async () => {
 };
 
 exports.readCsvHeaders = async (path) => {
-	console.log('heyheyhey');
 	return new Promise((resolve, reject) => {
 		fs.createReadStream(path)
 			.on('error', (err) => {
@@ -24,16 +23,59 @@ exports.readCsvHeaders = async (path) => {
 	});
 };
 
-exports.writeToCsv = (path, data, append = false) => {
+const readCsv = async (path) => {
+	return new Promise((resolve, reject) => {
+		let results = [];
+		fs.createReadStream(path)
+			.on('error', (err) => {
+				console.log('There was an err reading the csv', path);
+				reject(err);
+			})
+			.pipe(csv())
+			.on('data', (data) => {
+				results.push(data);
+			})
+			.on('end', () => {
+				resolve(results);
+			});
+	});
+};
+
+exports.writeToCsv = async (path, data) => {
 	const csvWriter = createCsvWriter({
 		path: path,
 		header: Object.keys(data).map((elem) => {
 			return { id: elem, title: elem };
 		}),
-		append: append,
+		append: false,
 	});
 
-	csvWriter.writeRecords([data]).then(() => {
-		console.log('Done writing');
-	});
+	if (!fs.existsSync(path)) {
+		fs.writeFileSync(path, '');
+	}
+
+	await readCsv(path)
+		.then((results) => {
+			if (!results.length) {
+				return [data];
+			}
+
+			let o = results.filter((row) => row.username === data.username);
+			let tmpData = results;
+
+			if (o) {
+				o = o[0];
+				tmpData = results.filter((row) => row.username !== data.username);
+				data = { ...o, ...data };
+				tmpData.push(data);
+			}
+
+			return tmpData;
+		})
+		.then((res) => {
+			console.log(res);
+			csvWriter.writeRecords(res).then(() => {
+				console.log('Done writing');
+			});
+		});
 };

@@ -15,6 +15,7 @@ const port = process.env.PORT || 3001;
 const pretestRoutes = require('./routes/pretest');
 const loginRoutes = require('./routes/login');
 const authRoutes = require('./routes/auth');
+const studyRoutes = require('./routes/study');
 
 app.use(express.json());
 
@@ -49,6 +50,8 @@ app.use('/auth', authRoutes);
 app.use('/login', loginRoutes);
 
 app.use('/pretest', pretestRoutes);
+
+app.use('/study', studyRoutes);
 
 app.listen(port, () => {
 	console.log(`App listening at http://localhost:${port}`);
