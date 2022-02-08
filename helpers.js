@@ -3,13 +3,36 @@ const fs = require('fs');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const csv = require('csv-parser');
 
-exports.readUserNames = async () => {
-	return fsPromise.readFile('./usernames.txt', 'utf8', (err, data) => {
-		return data;
+readUserNames = async () => {
+	// return fsPromise.readFile('./usernames.txt', 'utf8', (err, data) => {
+	// 	return data;
+	// });
+
+	return new Promise(async (resolve, reject) => {
+		await readCsv('./usernames.csv').then((data) => {
+			let usernames = [];
+			for (let d of data) {
+				let user = Object.values(d)[0].split(';');
+				usernames.push({ username: user[0], helpType: user[1] });
+			}
+			resolve(usernames);
+		});
 	});
 };
 
-exports.readCsvHeaders = async (path) => {
+const getFilteredUsernames = async (username) => {
+	let usernames;
+
+	await readUserNames().then((data) => {
+		usernames = data;
+	});
+
+	let filteredUsernames = usernames.filter((user) => user.username === username);
+
+	return filteredUsernames;
+};
+
+readCsvHeaders = async (path) => {
 	return new Promise((resolve, reject) => {
 		fs.createReadStream(path)
 			.on('error', (err) => {
@@ -23,7 +46,7 @@ exports.readCsvHeaders = async (path) => {
 	});
 };
 
-const readCsv = async (path) => {
+readCsv = async (path) => {
 	return new Promise((resolve, reject) => {
 		let results = [];
 		fs.createReadStream(path)
@@ -41,7 +64,7 @@ const readCsv = async (path) => {
 	});
 };
 
-exports.writeToCsv = async (path, data) => {
+writeToCsv = async (path, data) => {
 	const csvWriter = createCsvWriter({
 		path: path,
 		header: Object.keys(data).map((elem) => {
@@ -78,4 +101,12 @@ exports.writeToCsv = async (path, data) => {
 				console.log('Done writing');
 			});
 		});
+};
+
+module.exports = {
+	readCsv,
+	writeToCsv,
+	readCsvHeaders,
+	readUserNames,
+	getFilteredUsernames,
 };

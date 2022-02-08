@@ -1,4 +1,5 @@
 const readUserNames = require('./helpers.js').readUserNames;
+const getFilteredUsernames = require('./helpers.js').getFilteredUsernames;
 
 const express = require('express');
 const app = express();
@@ -16,6 +17,7 @@ const pretestRoutes = require('./routes/pretest');
 const loginRoutes = require('./routes/login');
 const authRoutes = require('./routes/auth');
 const studyRoutes = require('./routes/study');
+const dataRoutes = require('./routes/data');
 
 app.use(express.json());
 
@@ -31,13 +33,15 @@ app.use(async (req, res, next) => {
 		return;
 	}
 
-	let usernames;
-	await readUserNames().then((data) => {
-		usernames = data;
-	});
+	if (!username) {
+		res.status(400).send('Invalid username');
+		return;
+	}
 
-	if (!username || !usernames.includes(username)) {
-		res.status(403).send('Invalid username');
+	const filteredUsernames = await getFilteredUsernames(username);
+
+	if (!filteredUsernames.length) {
+		res.status(403).send('Unauthorized');
 		return;
 	}
 
@@ -52,6 +56,8 @@ app.use('/login', loginRoutes);
 app.use('/pretest', pretestRoutes);
 
 app.use('/study', studyRoutes);
+
+app.use('/data', dataRoutes);
 
 app.listen(port, () => {
 	console.log(`App listening at http://localhost:${port}`);

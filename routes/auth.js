@@ -2,18 +2,22 @@ const express = require('express');
 const router = express.Router();
 
 const readUserNames = require('../helpers.js').readUserNames;
+const getFilteredUsernames = require('../helpers.js').getFilteredUsernames;
 
 router.post('/isAuthenticated', async (req, res) => {
 	let username = req.body['username'];
 
-	let usernames;
+	if (!username) {
+		res.status(400).send('Invalid username');
+		return;
+	}
 
-	await readUserNames().then((data) => {
-		usernames = data.split('\n');
-	});
+	username = username.toLowerCase();
 
-	if (!username || !usernames.includes(username)) {
-		res.status(403).send(false);
+	const filteredUsernames = await getFilteredUsernames(username);
+
+	if (!filteredUsernames.length) {
+		res.status(403).send('Unauthorized');
 		return;
 	}
 
