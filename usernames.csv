@@ -1,66 +1,66 @@
-﻿username;helpType
-rubberyargus;0
-fragilekappas;0
-economicunfogging;0
-squarevoldemort;0
-magentarita;0
-specialfriar;0
-neighborlygillyweed;0
-dependableazkaban;0
-fairpomfrey;0
-outspokentriwizard;0
-grownauror;0
-fivemalfoy;0
-premiumcleansweep;0
-gianthassan;0
-shimmeringravenclaw;0
-dutifulcelestina;0
-amazingimperio;1
-indelibleexpecto;1
-worstpeeves;1
-devotedfawkes;1
-versatilefinnigan;1
-subtlezonko;1
-rapidgilderoy;1
-unlinedalbus;1
-anchoredmudblood;1
-trustygoyle;1
-thirstyjarvey;1
-eliteconduct;1
-discerningoakshaft;1
-punctualrubeus;1
-onerousmcboon;1
-mammothmuggle;1
-truthfulnimbus;2
-reasonablefwooper;2
-fertilekeeper;2
-truepolyjuice;2
-delightfulcirce;2
-equablebagshot;2
-avariciouskrum;2
-afraidphyllida;2
-disturbedhogsmead;2
-gregariousscabbers;2
-rightfulalley;2
-cleararagog;2
-arrogantimperious;2
-bossyhogwarts;2
-webbedseverus;2
-stingyfilch;2
-fearlesskedavra;3
-enormouscruciatus;3
-queasygillyweed;3
-aquatictwigger;3
-truerobes;3
-joblessskrewt;3
-ubiquitousoakshaft;3
-briskboggart;3
-raregryffindor;3
-ruralmarvolo;3
-innatenorbert;3
-supremespinnet;3
-bewitchednimbus;3
-machoerised;3
-forgetfulbulstrode;3
-befittingcrabbe;3
-expert;4
+username	helpType	id
+rubberyargus	0	0
+fragilekappas	0	1
+economicunfogging	0	2
+squarevoldemort	0	3
+magentarita	0	4
+specialfriar	0	5
+neighborlygillyweed	0	6
+dependableazkaban	0	7
+fairpomfrey	0	8
+outspokentriwizard	0	9
+grownauror	0	10
+fivemalfoy	0	11
+premiumcleansweep	0	12
+gianthassan	0	13
+shimmeringravenclaw	0	14
+dutifulcelestina	0	15
+amazingimperio	1	16
+indelibleexpecto	1	17
+worstpeeves	1	18
+devotedfawkes	1	19
+versatilefinnigan	1	20
+subtlezonko	1	21
+rapidgilderoy	1	22
+unlinedalbus	1	23
+anchoredmudblood	1	24
+trustygoyle	1	25
+thirstyjarvey	1	26
+eliteconduct	1	27
+discerningoakshaft	1	28
+punctualrubeus	1	29
+onerousmcboon	1	30
+mammothmuggle	1	31
+truthfulnimbus	2	32
+reasonablefwooper	2	33
+fertilekeeper	2	34
+truepolyjuice	2	35
+delightfulcirce	2	36
+equablebagshot	2	37
+avariciouskrum	2	38
+afraidphyllida	2	39
+disturbedhogsmead	2	40
+gregariousscabbers	2	41
+rightfulalley	2	42
+cleararagog	2	43
+arrogantimperious	2	44
+bossyhogwarts	2	45
+webbedseverus	2	46
+stingyfilch	2	47
+fearlesskedavra	3	48
+enormouscruciatus	3	49
+queasygillyweed	3	50
+aquatictwigger	3	51
+truerobes	3	52
+joblessskrewt	3	53
+ubiquitousoakshaft	3	54
+briskboggart	3	55
+raregryffindor	3	56
+ruralmarvolo	3	57
+innatenorbert	3	58
+supremespinnet	3	59
+bewitchednimbus	3	60
+machoerised	3	61
+forgetfulbulstrode	3	62
+befittingcrabbe	3	63
+expert	4	64

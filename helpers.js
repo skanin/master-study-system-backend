@@ -12,8 +12,8 @@ readUserNames = async () => {
 		await readCsv('./usernames.csv').then((data) => {
 			let usernames = [];
 			for (let d of data) {
-				let user = Object.values(d)[0].split(';');
-				usernames.push({ username: user[0], helpType: user[1] });
+				let user = Object.values(d)[0].split('\t');
+				usernames.push({ username: user[0], helpType: user[1], subject: user[2] });
 			}
 			resolve(usernames);
 		});

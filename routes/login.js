@@ -60,7 +60,8 @@ router.post('/', async (req, res) => {
 
 	res.status(200).send({
 		helpType: parseInt(filteredUsernames[0].helpType),
-		subject: filteredUsernames[0].username,
+		subject: parseInt(filteredUsernames[0].subject),
+		username: filteredUsernames[0].username
 	});
 });
 

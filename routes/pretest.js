@@ -19,7 +19,6 @@ router.post('/', async (req, res) => {
 		});
 
 	let data = { subjectId: req.body.subject, username: req.body.username };
-	console.log(req.body);
 	req.body.questions.forEach((element) => {
 		data[`pretest.${element.questionId}`] = element.checked >= 0 ? element.checked : null;
 		data[`pretest.${element.questionId}_correct`] = element.correct;
@@ -30,9 +29,6 @@ router.post('/', async (req, res) => {
 			data[header] = null;
 		}
 	}
-
-	console.log(data);
-	console.log(process.cwd());
 
 	writeToCsv(path, data);
 
