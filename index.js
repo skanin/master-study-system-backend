@@ -28,7 +28,7 @@ app.use(async (req, res, next) => {
 
 	console.log(`Data: ${username}`);
 
-	if (req.url.includes('login')) {
+	if (req.url.includes('login') || req.url.includes('data')) {
 		next();
 		return;
 	}
