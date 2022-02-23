@@ -8,8 +8,10 @@ const readCsvHeaders = require('../helpers').readCsvHeaders;
 
 router.post('/', async (req, res) => {
 	let headers = [];
-	const path = process.cwd() + '/data/studyAnswers.csv';
-	console.log(req.body.answers);
+	const subject = { id: req.body.subject, username: req.body.username };
+
+	const path = process.cwd() + `/data/logs${subject.id}${subject.username}.csv`;
+
 	await readCsvHeaders(path)
 		.then((header) => {
 			headers = header;
@@ -18,14 +20,18 @@ router.post('/', async (req, res) => {
 			console.log('No file found, creating new.');
 		});
 
-	let data = { subjectId: req.body.subject, username: req.body.username };
-
-	for (let answer of req.body.answers) {
-		let [key, value] = Object.entries(answer)[0];
-		data[key] = value;
+	let tmp = [];
+	for (let log of req.body.logs) {
+		let data = {};
+		console.log(log);
+		for (let logEntry of Object.entries(log)) {
+			let [key, value] = logEntry;
+			data[key] = value;
+		}
+		tmp.push(data);
 	}
-
-	writeToCsv(path, data, fs.existsSync(path));
+	console.log(tmp);
+	writeToCsv(path, tmp, fs.existsSync(path));
 
 	res.sendStatus(200);
 });

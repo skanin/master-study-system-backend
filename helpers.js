@@ -65,13 +65,38 @@ readCsv = async (path) => {
 };
 
 writeToCsv = async (path, data) => {
-	const csvWriter = createCsvWriter({
-		path: path,
-		header: Object.keys(data).map((elem) => {
-			return { id: elem, title: elem };
-		}),
-		append: false,
-	});
+	let csvWriter;
+	if (Array.isArray(data)) {
+		// const headers = Array.from(new Set(data.map((item) => Object.keys(item))));
+		const headers = [
+			'type',
+			'time',
+			'subject',
+			'helpType',
+			'username',
+			'pretestAnswer',
+			'pretestId',
+			'pretestQuestion',
+			'from',
+			'to',
+			'videoTime',
+			'taskId',
+		];
+		csvWriter = createCsvWriter({
+			path: path,
+			header: headers.map((h) => {
+				return { id: h, title: h };
+			}),
+		});
+	} else {
+		csvWriter = createCsvWriter({
+			path: path,
+			header: Object.keys(data).map((elem) => {
+				return { id: elem, title: elem };
+			}),
+			append: false,
+		});
+	}
 
 	if (!fs.existsSync(path)) {
 		fs.writeFileSync(path, '');
@@ -80,23 +105,26 @@ writeToCsv = async (path, data) => {
 	await readCsv(path)
 		.then((results) => {
 			if (!results.length) {
-				return [data];
+				return Array.isArray(data) ? data : [data];
 			}
 
 			let o = results.filter((row) => row.username === data.username);
 			let tmpData = results;
 
-			if (o) {
+			if (o && !Array.isArray(data)) {
 				o = o[0];
 				tmpData = results.filter((row) => row.username !== data.username);
 				data = { ...o, ...data };
 				tmpData.push(data);
+			} else if (o && Array.isArray(data)) {
+				o = o[0];
+				tmpData = results.filter((row) => row.username !== data.username);
+				tmpData.push(...data);
 			}
 
 			return tmpData;
 		})
 		.then((res) => {
-			console.log(res);
 			csvWriter.writeRecords(res).then(() => {
 				console.log('Done writing');
 			});

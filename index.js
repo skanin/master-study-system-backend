@@ -18,6 +18,7 @@ const loginRoutes = require('./routes/login');
 const authRoutes = require('./routes/auth');
 const studyRoutes = require('./routes/study');
 const dataRoutes = require('./routes/data');
+const logRoutes = require('./routes/logs');
 
 app.use(express.json());
 
@@ -58,6 +59,8 @@ app.use('/pretest', pretestRoutes);
 app.use('/study', studyRoutes);
 
 app.use('/data', dataRoutes);
+
+app.use('/logs', logRoutes);
 
 app.listen(port, () => {
 	console.log(`App listening at http://localhost:${port}`);

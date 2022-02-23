@@ -8,6 +8,7 @@ const readCsvHeaders = require('../helpers').readCsvHeaders;
 
 router.post('/', async (req, res) => {
 	let headers = [];
+	console.log(req.body.questions);
 	const path = process.cwd() + '/data/pretestAnswers.csv';
 
 	await readCsvHeaders(path)
